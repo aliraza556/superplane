@@ -26,6 +26,7 @@ import { CardGrid, LinkCard } from "@astrojs/starlight/components";
 
 <CardGrid>
   <LinkCard title="Create Issue" href="#create-issue" description="Create a new issue in a GitHub repository" />
+  <LinkCard title="Create Issue Comment" href="#create-issue-comment" description="Add a comment to a GitHub issue or pull request" />
   <LinkCard title="Create Release" href="#create-release" description="Create a new release in a GitHub repository" />
   <LinkCard title="Delete Release" href="#delete-release" description="Delete a release from a GitHub repository" />
   <LinkCard title="Get Issue" href="#get-issue" description="Get a GitHub issue by number" />
@@ -981,6 +982,56 @@ Returns the created issue object with details including:
   },
   "timestamp": "2026-01-16T17:56:16.680755501Z",
   "type": "github.issue"
+}
+```
+
+<a id="create-issue-comment"></a>
+
+## Create Issue Comment
+
+The Create Issue Comment component adds a comment to a GitHub issue or pull request.
+
+### Use Cases
+
+- **Deployment status updates**: Post deployment status or remediation updates to GitHub issues from SuperPlane
+- **Runbook linking**: Add runbook links, error details, or status for responders
+- **Cross-platform sync**: Sync Slack or PagerDuty notes into GitHub as comments
+- **Automated notifications**: Add automated workflow status updates to issues
+- **Bot interactions**: Post automated responses or acknowledgments to issues
+
+### Configuration
+
+- **Repository**: Select the GitHub repository containing the issue (required)
+- **Issue Number**: The issue or PR number to comment on (supports expressions, required)
+- **Body**: The comment text - supports Markdown formatting (required)
+
+### Output
+
+Returns the created comment object with details including:
+- Comment ID
+- Body text
+- Author information
+- Created timestamp
+- HTML URL to the comment
+
+### Example Output
+
+```json
+{
+  "data": {
+    "id": 5001,
+    "body": "Deployment completed successfully. See logs at https://ci.example.com/builds/123",
+    "html_url": "https://github.com/acme/widgets/issues/42#issuecomment-5001",
+    "user": {
+      "login": "superplane-bot",
+      "id": 12345,
+      "html_url": "https://github.com/superplane-bot"
+    },
+    "created_at": "2026-01-16T17:56:16Z",
+    "updated_at": "2026-01-16T17:56:16Z"
+  },
+  "timestamp": "2026-01-16T17:56:16.680755501Z",
+  "type": "github.issueComment"
 }
 ```
 
